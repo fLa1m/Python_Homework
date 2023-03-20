@@ -10,3 +10,12 @@ for i in range(1001):
     for j in range(1001):
         if i * j == p and i + j == s:
             print(i, j)
+
+# Эталонное решение
+
+x = int(input())
+y = int(input())
+for i in range(x):
+    for j in range(y):
+        if x == i + j and y == i * j:
+            print(i, j)
