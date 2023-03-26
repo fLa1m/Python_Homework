@@ -20,16 +20,27 @@ berries_count = [randint(1, 10) for _ in range(bush)]
 sum = 0
 print(berries_count)
 for i in range(len(berries_count)):
-    # print(f"i={i}")
     if i == len(berries_count) - 1:
         max_bush = berries_count[i] + berries_count[i - 1] + berries_count[0]
     else:
         max_bush = berries_count[i] + berries_count[i - 1] + berries_count[i + 1]
-    # print(f"max_bush={max_bush}")
     if max_bush > sum:
         sum = max_bush
         max_bush = 0
     else:
         max_bush = 0
-    # print(f"sum={sum}")
 print(f"Количество ягод: {sum}")
+
+# Эталонное решение
+
+n = int(input())
+arr = list()
+for i in range(n):
+    x = int(input())
+    arr.append(x)
+
+arr_count = list()
+for i in range(len(arr) - 1):
+    arr_count.append(arr[i - 1] + arr[i] + arr[i + 1])
+arr_count.append(arr[-2] + arr[-1] + arr[0])
+print(max(arr_count))
