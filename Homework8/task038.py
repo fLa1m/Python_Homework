@@ -97,33 +97,33 @@ def change_contact(contacts):
     )
 
     val: list = find_contact(contacts)
-    screen(val)
-    # print(val)
 
-    print("Укажите номер контакта для изменения.")
-    contact = list()
-    var = int(select_menu(val))
-    print(type(var))
-    select_contact = int(select_menu(val) - 1)
-    # print(f"select_contact = {select_contact}")
-    contact.append(val[select_contact])
-    contact_keys = list(val[select_contact])
-    # print(contact)
-    print("Укажите номер изменяемого поля.")
-    contact_list = str()
-    for num, el in enumerate(contact_keys, 1):
-        contact_list += "".join(f"{num}. {keys[el]}") + "\n"
-    print(contact_list)
+    if val:
+        screen(val)
 
-    select = select_menu(contact_keys)
-    # print(f"--{select}--")
+        print("Укажите номер контакта для изменения.")
+        contact = list()
+        select_contact = select_menu(val) - 1
+        contact.append(val[select_contact])
+        contact_keys = list(val[select_contact])
 
-    # print(contact_keys[select - 1])
-    dict_val = val[select_contact]
-    # print(dict_val)
-    print("Введите новое значение.")
-    dict_val[contact_keys[select - 1]] = input(">>> ")
-    # print(dict_val)
+        print("Укажите номер изменяемого поля.")
+        contact_list = str()
+        for num, el in enumerate(contact_keys, 1):
+            contact_list += "".join(f"{num}. {keys[el]}") + "\n"
+        print(contact_list)
+
+        select = select_menu(contact_keys)
+        dict_val = val[select_contact]
+
+        print("Введите новое значение.")
+        dict_val[contact_keys[select - 1]] = input(
+            f"{keys[contact_keys[select - 1]]}:\n>>> "
+        )
+
+    else:
+        print("Нет контактов.")
+        change_contact(contacts)
 
 
 def menu():
@@ -147,10 +147,10 @@ def select_menu(commands: list) -> int:
             raise Exception("Такой команды нет.")
     except ValueError as ex:
         print("Повторите ввод.")
-        select_menu(commands)
+        return select_menu(commands)
     except Exception as ex:
         print(ex)
-        select_menu(commands)
+        return select_menu(commands)
     else:
         return select
 

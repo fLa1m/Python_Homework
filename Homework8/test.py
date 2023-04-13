@@ -1,21 +1,25 @@
-commands = ["Показать все контакты", "Найти контакт", "Создать контакт"]
-
-
-def select_menu(commands: list) -> int:
-    select = input(">>> ")
+def menu() -> int:
+    commands = ["Показать все контакты", "Найти контакт", "Создать контакт"]
+    print("Укажите номер команды: ")
+    print("\n".join(f"{n}. {v}" for n, v in enumerate(commands, 1)))
+    choice = input(">>> ")
+    a = choice
 
     try:
-        select = int(select)
-        if select < 0 or len(commands) < select:
+        choice = int(choice)
+        if choice < 0 or len(commands) < choice:
             raise Exception("Такой команды нет.")
-    except ValueError as ex:
+    except ValueError:
         print("Повторите ввод.")
-        select_menu(commands)
-    except Exception as ex:
-        print(ex)
-        select_menu(commands)
+        return menu()
+    except Exception:
+        print("Такой команды нет.")
+        return menu()
     else:
-        return int(select)
+        return choice
 
 
-print(type(select_menu(commands)))
+var = menu()
+
+print(type(var))
+print(var)
