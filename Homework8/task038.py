@@ -96,7 +96,7 @@ def change_contact(contacts):
         phone_number="Телефон",
     )
 
-    val: list = find_contact(contacts)
+    val = find_contact(contacts)
 
     if val:
         screen(val)
@@ -126,12 +126,41 @@ def change_contact(contacts):
         change_contact(contacts)
 
 
+def delete_contact(contacts: list):
+    val = find_contact(contacts)
+    if val:
+        screen(val)
+        print("Выберите номер контакта.")
+        # print(val)
+        delete_list = list()
+        select_contact = select_menu(val) - 1
+        delete_list.append(val[select_contact])
+        # print(*delete_list)
+        position = contacts.index(*delete_list)
+        # print(contacts[position])
+        print("\nВы действительно хотите удалить контакт? Укажите Y/N.\n")
+        screen(delete_list)
+        mark = input(f"Y/N:\n>>> ").lower()
+        while mark not in "yn":
+            mark = input(f"Y/N:\n>>> ").lower()
+            # print(mark)
+        if mark == "y":
+            del contacts[position]
+        else:
+            main()
+
+    else:
+        print("Нет контактов.")
+        delete_contact(contacts)
+
+
 def menu():
     commands = [
         "Показать все контакты",
         "Добавить контакт",
         "Поиск контакта",
         "Изменить контакт",
+        "Удалить контакт",
     ]
     print("Укажите номер команды: ")
     print("\n".join(f"{k}. {v}" for k, v in enumerate(commands, 1)))
@@ -167,6 +196,8 @@ def main():
         screen_find_contact(data)
     elif command == 4:
         change_contact(data)
+    elif command == 5:
+        delete_contact(data)
 
     save_file(data)
 
