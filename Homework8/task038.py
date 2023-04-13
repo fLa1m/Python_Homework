@@ -130,20 +130,18 @@ def delete_contact(contacts: list):
     val = find_contact(contacts)
     if val:
         screen(val)
+
         print("Выберите номер контакта.")
-        # print(val)
         delete_list = list()
         select_contact = select_menu(val) - 1
         delete_list.append(val[select_contact])
-        # print(*delete_list)
         position = contacts.index(*delete_list)
-        # print(contacts[position])
+
         print("\nВы действительно хотите удалить контакт? Укажите Y/N.\n")
         screen(delete_list)
         mark = input(f"Y/N:\n>>> ").lower()
         while mark not in "yn":
             mark = input(f"Y/N:\n>>> ").lower()
-            # print(mark)
         if mark == "y":
             del contacts[position]
         else:
